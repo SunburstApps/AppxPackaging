@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <AppxPackageDir Condition="'$(AppxPackageDir)' == ''">$(SolutionDir)bin\AppxPackage</AppxPackageDir>
+    <AppxCreateSplitPackages Condition="'$(AppxCreateSplitPackages) == ''">false</AppxCreateSplitPackages>
+  </PropertyGroup>
+
+  <Target Name="Build">
+    <!-- Error out if configuration is invalid. -->
+    <Error Text="An AppxManifest item must be specified." Condition="'@(AppxManifest)' == ''" />
+    <Error Text="Only one AppxManifest item must be specified (there are @(AppxManifest -> Count()))." Condition="'@(AppxManifest -> Count())' != '1'" />
+    <Error Text="You must specify a packag name if split packages are to be created." Condition="'$(AppxPackageFileName)' == '' and '$(AppxCreateSplitPackages)' == 'true'" />
+
+    <MakeDir Directories="$(AppxPackageDir)" />
+
+    <!-- Build the project references. -->
+    <ItemGroup>
+      <_ProjectReferenceWithDestination Include="@(ProjectReference)" Condition="'%(ProjectReference.VFSTargetDir)' != ''">
+        <Destination>$(AppxPackageDir)\VFS\%(ProjectReference.VFSTargetDir)</Destination>
+      </_ProjectReferenceWithDestination>
+      <_ProjectReferenceWithDestination Include="@(ProjectReference)" Condition="'%(ProjectReference.Destination)' != ''">
+        <Destination>$(AppxPackageDir)\%(ProjectReference.Destination)</Destination>
+      </_ProjectReferenceWithDestination>
+    </ItemGroup>
+    <MSBuild Projects="@(_ProjectReferenceWithDestination)" Targets="_AppXPackageGetProjectFiles" Properties="_AppXDestination=%(Destination)">
+      <Output TaskParameter="TargetOutputs" ItemName="_ProjectFileWithDuplicates" />
+    </MSBuild>
+
+    <RemoveDuplicates Inputs="@(_ProjectFileWithDuplicates)">
+      <Output TaskParameter="Filtered" ItemName="_ProjectFile" />
+    </RemoveDuplicates>
+
+    <!-- Don't copy the PDBs, these should not be shipped. -->
+    <ItemGroup>
+      <_ProjectFile Remove="@(_ProjectFile)" Condition="'%(Extension)' == '.pdb'" />
+    </ItemGroup>
+
+    <Copy SourceFiles="@(_ProjectFile)" DestinationFolder="%(Destination)" />
+
+    <!-- Copy the visual asset files. -->
+    <Copy SourceFiles="@(VisualAsset)" DestinationFolder="$(AppxPackageDir)\Assets" />
+
+    <!-- Copy the content files. -->
+    <ItemGroup>
+      <_ContentWithDestination Include="@(Content)" Condition="'%(Content.VFSTargetDir)' != ''">
+        <Destination>$(AppxPackageDir)\VFS\%(Content.VFSTargetDir)</Destination>
+      </_ContentWithDestination>
+      <_ContentWithDestination Include="@(Content)" Condition="'%(Content.Destination)' != ''">
+        <Destination>$(AppxPackageDir)\%(Destination)</Destination>
+      </_ContentWithDestination>
+    </ItemGroup>
+    <Copy SourceFiles="@(_ContentWithDestination)" DestinationFolder="%(Destination)" />
+
+    <!-- Copy the AppX manifest. -->
+    <Copy SourceFiles="@(AppxManifest)" DestinationFolder="$(AppxPackageDir)" />
+
+    <!-- Finally, crate a split package, if requested. -->
+    <Exec Command="&quot;$(MSBuildThisFileDirectory)MakeAppxBundle.bat&quot; &quot;$(AppxPackageFileName)&quot; &quot;$(AppxPackageDir)&quot; @(AppxLanguage -> '%(Identity)', ' ')"
+          WorkingDirectory="$(SolutionDir)" Condition="'$(AppxCreateSplitPackages)' == 'true'" StandardOutputImportance="high" />
+  </Target>
+
+  <Target Name="Clean">
+    <RemoveDir Directories="$(AppxPackageDir)" />
+  </Target>
+
+  <Target Name="Rebuild" DependsOnTargets="Clean;Build"/>
+</Project>
