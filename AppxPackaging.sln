@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.26403.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunburst.AppxPackaging.PriAssemblyResolver", "Sunburst.AppxPackaging.PriAssemblyResolver\Sunburst.AppxPackaging.PriAssemblyResolver.csproj", "{ACDF5533-8180-4F11-987F-A9F3DCCAAEFA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C97A09E0-1999-417D-9DEF-F6E766A7762B} = {C97A09E0-1999-417D-9DEF-F6E766A7762B}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunburst.AppxPackaging.Tasks", "Sunburst.AppxPackaging.Tasks\Sunburst.AppxPackaging.Tasks.csproj", "{736745DC-6341-4C09-AD49-1B988674C54E}"
 EndProject
