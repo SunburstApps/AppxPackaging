@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
-namespace Sunburst.AppxPackaging
+namespace Sunburst.AppxPackaging.Tasks
 {
     public sealed class CompilePriConfig : ToolTask
     {

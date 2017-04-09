@@ -7,8 +7,8 @@
     <AppxTasksAssembly>$(MSBuildThisFileDirectory)..\bin\$(Configuration)\Sunburst.AppxPackaging.dll</AppxTasksAssembly>
   </PropertyGroup>
 
-  <UsingTask AssemblyFile="$(AppxTasksAssembly)" TaskName="Sunburst.AppxPackaging.CreatePriConfig" />
-  <UsingTask AssemblyFile="$(AppxTasksAssembly)" TaskName="Sunburst.AppxPackaging.CompilePriConfig" />
+  <UsingTask AssemblyFile="$(AppxTasksAssembly)" TaskName="Sunburst.AppxPackaging.Tasks.CreatePriConfig" />
+  <UsingTask AssemblyFile="$(AppxTasksAssembly)" TaskName="Sunburst.AppxPackaging.Tasks.CompilePriConfig" />
 
   <Target Name="AppxCheckPreconditions">
     <Error Text="You must specify a package name." Condition="'$(AppxPackageName)' == ''" />
