@@ -27,16 +27,28 @@ namespace Sunburst.AppxPackaging.Tasks
 
             argv.Add("new");
             argv.Add("/pr");
-            argv.Add(PackageLayout.GetMetadata("FullPath"));
+            argv.Add(GetFullPath(PackageLayout));
             argv.Add("/cf");
-            argv.Add(ConfigFile.GetMetadata("FullPath"));
+            argv.Add(GetFullPath(ConfigFile));
             argv.Add("/of");
-            argv.Add(OutputFile.GetMetadata("FullPath"));
+            argv.Add(GetFullPath(OutputFile));
             argv.Add("/mf");
             argv.Add("AppX");
             argv.Add("/o");
 
             return string.Join(" ", argv.Select(arg => $"\"{arg}\""));
+        }
+
+        private static string GetFullPath(ITaskItem item)
+        {
+            string path = item.GetMetadata("FullPath");
+
+            // MakePri.exe chokes if an argument ends with a backslash, followed immediately by
+            // a double-quote. I must therefore remove any trailing backslashes from the paths.
+            if (path.EndsWith(System.IO.Path.DirectorySeparatorChar.ToString()))
+                path = path.Substring(0, path.Length - 2);
+
+            return path;
         }
     }
 }
