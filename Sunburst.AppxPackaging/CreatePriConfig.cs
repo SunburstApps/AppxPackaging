@@ -13,7 +13,7 @@ namespace Sunburst.AppxPackaging
         public string[] LanguageQualifiers { get; set; }
         public string TargetVersion { get; set; } = null;
         [Required]
-        public string ConfigFilePath { get; set; }
+        public ITaskItem ConfigFilePath { get; set; }
 
         protected override string ToolName => "makepri.exe";
 
@@ -32,7 +32,7 @@ namespace Sunburst.AppxPackaging
             List<string> argv = new List<string>();
             argv.Add("createconfig");
             argv.Add("/cf");
-            argv.Add(ConfigFilePath);
+            argv.Add(ConfigFilePath.GetMetadata("FullPath"));
             argv.Add("/dq");
             argv.Add(qualifierString.ToString());
             argv.Add("/pv");
