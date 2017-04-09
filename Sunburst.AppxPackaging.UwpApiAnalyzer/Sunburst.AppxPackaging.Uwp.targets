@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project>
+  <ItemGroup Condition="Exists($(MSBuildThisFileDirectory)bin\$(Configuration)\Sunburst.AppxPackaging.UwpApiAnalyzr.dll)">
+    <Analyzer Include="$(MSBuildThisFileDirectory)bin\$(Configuration)\Sunburst.AppxPackaging.UwpApiAnalyzr.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Runtime.WindowsRuntime, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(MSBuildProgramFiles32)\Reference Assemblies\Microsoft\Framework\.NETCore\v4.5\System.Runtime.WindowsRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.WindowsRuntime.UI.Xaml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(MSBuildProgramFiles32)\Reference Assemblies\Microsoft\Framework\.NETCore\v4.5\System.Runtime.WindowsRuntime.UI.Xaml.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <AppxTargetApiVersion Condition="'$(AppxTargetApiVersion)' == ''">15063</AppxTargetApiVersion>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)UwpSdks\$(AppxTargetApiVersion).targets" />
+</Project>
