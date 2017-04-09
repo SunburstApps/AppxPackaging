@@ -27,7 +27,7 @@ namespace Sunburst.AppxPackaging.Tasks
             StringBuilder qualifierString = new StringBuilder();
             qualifierString.Append(string.Join("_", LanguageQualifiers.Where(x => !string.IsNullOrWhiteSpace(x))));
 
-            string runtimeVersion = TargetVersion ?? "10.0.0.0";
+            string runtimeVersion = TargetVersion ?? "10.0";
 
             List<string> argv = new List<string>();
             argv.Add("createconfig");
