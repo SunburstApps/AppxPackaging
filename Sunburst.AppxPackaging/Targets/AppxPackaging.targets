@@ -71,6 +71,10 @@
   </Target>
 
   <Target Name="AppxCreatePriConfig" DependsOnTargets="AppxCheckPreconditions">
+    <PropertyGroup>
+      <AppxPriLanguages Condition="'$(AppxPriLanguages)' == ''">en-US</AppxPriLanguages>
+    </PropertyGroup>
+
     <MakeDir Directories="$(AppxPackageRoot)Fat" Condition="!Exists($(AppxPackageRoot)Fat)" />
     <CreatePriConfig LanguageQualifiers="$(AppxPriLanguages)" TargetVersion="$(AppxPriTargetVersion)" ConfigFilePath="$(AppxPackageRoot)Fat\$(AppxPackageName).xml" />
   </Target>
