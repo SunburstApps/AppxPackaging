@@ -25,7 +25,7 @@ namespace Sunburst.AppxPackaging
         protected override string GenerateCommandLineCommands()
         {
             StringBuilder qualifierString = new StringBuilder();
-            qualifierString.Append(string.Join("_", LanguageQualifiers));
+            qualifierString.Append(string.Join("_", LanguageQualifiers.Where(x => !string.IsNullOrWhiteSpace(x))));
 
             string runtimeVersion = TargetVersion ?? "10.0.0.0";
 
