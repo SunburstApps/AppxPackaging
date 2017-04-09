@@ -47,6 +47,24 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ManifestSchemas\RestrictedCapabilities-2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ManifestSchemas\RestrictedCapabilities-3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ManifestSchemas\RestrictedCapabilities.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ManifestSchemas\WindowsCapabilities-2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ManifestSchemas\WindowsCapabilities-3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ManifestSchemas\WindowsCapabilities.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Targets\AppxPackaging.targets" />
     <None Include="Targets\GetProjectFiles.targets" />
   </ItemGroup>
