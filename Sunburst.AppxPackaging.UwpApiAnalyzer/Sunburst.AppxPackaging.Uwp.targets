@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Project>
-  <ItemGroup Condition="Exists($(MSBuildThisFileDirectory)bin\$(Configuration)\Sunburst.AppxPackaging.UwpApiAnalyzr.dll)">
-    <Analyzer Include="$(MSBuildThisFileDirectory)bin\$(Configuration)\Sunburst.AppxPackaging.UwpApiAnalyzr.dll" />
+  <ItemGroup Condition="Exists('$(MSBuildThisFileDirectory)bin\$(Configuration)\Sunburst.AppxPackaging.UwpApiAnalyzr.dll')">
+    <Analyzer Include="$(MSBuildThisFileDirectory)bin\$(Configuration)\Sunburst.AppxPackaging.UwpApiAnalyzer.dll" />
   </ItemGroup>
 
   <ItemGroup>
