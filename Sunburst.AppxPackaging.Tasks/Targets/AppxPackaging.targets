@@ -72,11 +72,13 @@
     </PropertyGroup>
 
     <MakeDir Directories="$(AppxPackageRoot)Fat" Condition="!Exists('$(AppxPackageRoot)Fat')" />
-    <CreatePriConfig LanguageQualifiers="$(AppxPriLanguages)" TargetVersion="$(AppxPriTargetVersion)" ConfigFilePath="$(AppxPackageRoot)Fat\$(AppxPackageName).xml" />
+    <CreatePriConfig LanguageQualifiers="$(AppxPriLanguages)" TargetVersion="$(AppxPriTargetVersion)" ConfigFilePath="$(AppxPackageRoot)Fat\$(AppxPackageName).xml"
+                     StandardOutputImportance="normal" StandardErrorImportance="high" />
   </Target>
 
   <Target Name="AppxCompilePriConfig" DependsOnTargets="AppxCheckPreconditions; AppxCreatePriConfig">
-    <CompilePriConfig PackageLayout="$(AppxPackageLayoutDir)" ConfigFilePath="$(AppxPackageRoot)Fat\$(AppxPackageName).xml" OutputFile="$(AppxPackageLayoutDir)resources.pri" />
+    <CompilePriConfig PackageLayout="$(AppxPackageLayoutDir)" ConfigFilePath="$(AppxPackageRoot)Fat\$(AppxPackageName).xml" OutputFile="$(AppxPackageLayoutDir)resources.pri"
+                     StandardOutputImportance="normal" StandardErrorImportance="high" />
   </Target>
 
   <Target Name="Build" DependsOnTargets="AppxCreatePackageLayout; AppxCompilePriConfig" />
