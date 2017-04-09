@@ -4,7 +4,7 @@
     <AppxPackageRoot Condition="'$(AppxPackageRoot)' == ''">$(SolutionDir)bin\$(AppxPackageName)\</AppxPackageRoot>
     <AppxPackageLayoutDir Condition="'$(AppxPackageLayoutDir)' == ''">$(AppxPackageRoot)Layout</AppxPackageLayoutDir>
 
-    <AppxTasksAssembly>$(MSBuildThisFileDirectory)..\bin\$(Configuration)\Sunburst.AppxPackaging.dll</AppxTasksAssembly>
+    <AppxTasksAssembly>$(MSBuildThisFileDirectory)..\bin\$(Configuration)\Sunburst.AppxPackaging.Tasks.dll</AppxTasksAssembly>
   </PropertyGroup>
 
   <UsingTask AssemblyFile="$(AppxTasksAssembly)" TaskName="Sunburst.AppxPackaging.Tasks.CreatePriConfig" />
