@@ -77,8 +77,8 @@
   </Target>
 
   <Target Name="AppxCompilePriConfig" DependsOnTargets="AppxCheckPreconditions; AppxCreatePriConfig">
-    <CompilePriConfig PackageLayout="$(AppxPackageLayoutDir)" ConfigFilePath="$(AppxPackageRoot)Fat\$(AppxPackageName).xml" OutputFile="$(AppxPackageLayoutDir)resources.pri"
-                     StandardOutputImportance="normal" StandardErrorImportance="high" />
+    <CompilePriConfig PackageLayout="$(AppxPackageLayoutDir)" ConfigFile="$(AppxPackageRoot)Fat\$(AppxPackageName).xml" OutputFile="$(AppxPackageLayoutDir)resources.pri"
+                      StandardOutputImportance="normal" StandardErrorImportance="high" />
   </Target>
 
   <Target Name="Build" DependsOnTargets="AppxCreatePackageLayout; AppxCompilePriConfig" />
