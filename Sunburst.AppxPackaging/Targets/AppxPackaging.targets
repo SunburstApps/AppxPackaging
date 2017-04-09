@@ -4,7 +4,11 @@
     <AppxPackageRoot Condition="'$(AppxPackageRoot)' == ''">$(SolutionDir)bin\$(AppxPackageName)\</AppxPackageRoot>
     <AppxPackageLayoutDir Condition="'$(AppxPackageLayoutDir)' == ''">$(AppxPackageRoot)Layout</AppxPackageLayoutDir>
     <AppxCreateSplitPackages Condition="'$(AppxCreateSplitPackages) == ''">false</AppxCreateSplitPackages>
+
+    <AppxTasksAssembly>$(MSBuildThisFileDirectory)..\bin\$(Configuration)\Sunburst.AppxPackaging.dll</AppxTasksAssembly>
   </PropertyGroup>
+
+  <UsingTask AssemblyFile="$(AppxTasksAssembly)" TaskName="Sunburst.AppxPackaging.CreatePriConfig" />
 
   <Target Name="AppxCheckPreconditions">
     <Error Text="You must specify a package name." Condition="'$(AppxPackageName)' == ''" />
@@ -64,6 +68,11 @@
     <!-- Finally, crate a split package, if requested. -->
     <Exec Command="&quot;$(MSBuildThisFileDirectory)MakeAppxBundle.bat&quot; &quot;$(AppxPackageFileName)&quot; &quot;$(AppxPackageLayoutDir)&quot; @(AppxLanguage -> '%(Identity)', ' ')"
           WorkingDirectory="$(SolutionDir)" Condition="'$(AppxCreateSplitPackages)' == 'true'" StandardOutputImportance="high" />
+  </Target>
+
+  <Target Name="AppxCreatePriConfig" DependsOnTargets="AppxCheckPreconditions">
+    <MakeDir Directories="$(AppxPackageRoot)Fat" Condition="!Exists($(AppxPackageRoot)Fat)" />
+    <CreatePriConfig LanguageQualifiers="$(AppxPriLanguages)" TargetVersion="$(AppxPriTargetVersion)" ConfigFilePath="$(AppxPackageRoot)Fat\$(AppxPackageName).xml" />
   </Target>
 
   <Target Name="Build" DependsOnTargets="AppxCreatePackageLayout" />
