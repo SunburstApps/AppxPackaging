@@ -65,7 +65,9 @@
     <None Include="ManifestSchemas\WindowsCapabilities.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Targets\AppxPackaging.targets" />
+    <None Include="Targets\AppxPackaging.targets">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Targets\GetProjectFiles.targets" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
