@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <UsingTask AssemblyFile="$(AppxTasksAssembly)" TaskName="Sunburst.AppxPackaging.CreatePriConfig" />
+  <UsingTask AssemblyFile="$(AppxTasksAssembly)" TaskName="Sunburst.AppxPackaging.CompilePriConfig" />
 
   <Target Name="AppxCheckPreconditions">
     <Error Text="You must specify a package name." Condition="'$(AppxPackageName)' == ''" />
@@ -79,7 +80,11 @@
     <CreatePriConfig LanguageQualifiers="$(AppxPriLanguages)" TargetVersion="$(AppxPriTargetVersion)" ConfigFilePath="$(AppxPackageRoot)Fat\$(AppxPackageName).xml" />
   </Target>
 
-  <Target Name="Build" DependsOnTargets="AppxCreatePackageLayout" />
+  <Target Name="AppxCompilePriConfig" DependsOnTargets="AppxCheckPreconditions; AppxCreatePriConfig">
+    <CompilePriConfig PackageLayout="$(AppxPackageLayoutDir)" ConfigFilePath="$(AppxPackageRoot)Fat\$(AppxPackageName).xml" OutputFile="$(AppxPackageLayoutDir)resources.pri" />
+  </Target>
+
+  <Target Name="Build" DependsOnTargets="AppxCreatePackageLayout; AppxCompilePriConfig" />
 
   <Target Name="Clean">
     <RemoveDir Directories="$(AppxPackageRoot)" />
