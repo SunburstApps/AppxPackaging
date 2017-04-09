@@ -3,7 +3,6 @@
   <PropertyGroup>
     <AppxPackageRoot Condition="'$(AppxPackageRoot)' == ''">$(SolutionDir)bin\$(AppxPackageName)\</AppxPackageRoot>
     <AppxPackageLayoutDir Condition="'$(AppxPackageLayoutDir)' == ''">$(AppxPackageRoot)Layout</AppxPackageLayoutDir>
-    <AppxCreateSplitPackages Condition="'$(AppxCreateSplitPackages) == ''">false</AppxCreateSplitPackages>
 
     <AppxTasksAssembly>$(MSBuildThisFileDirectory)..\bin\$(Configuration)\Sunburst.AppxPackaging.dll</AppxTasksAssembly>
   </PropertyGroup>
@@ -65,10 +64,6 @@
 
     <!-- Copy the AppX manifest. -->
     <Copy SourceFiles="@(AppxManifest)" DestinationFolder="$(AppxPackageLayoutDir)" />
-
-    <!-- Finally, crate a split package, if requested. -->
-    <Exec Command="&quot;$(MSBuildThisFileDirectory)MakeAppxBundle.bat&quot; &quot;$(AppxPackageFileName)&quot; &quot;$(AppxPackageLayoutDir)&quot; @(AppxLanguage -> '%(Identity)', ' ')"
-          WorkingDirectory="$(SolutionDir)" Condition="'$(AppxCreateSplitPackages)' == 'true'" StandardOutputImportance="high" />
   </Target>
 
   <Target Name="AppxCreatePriConfig" DependsOnTargets="AppxCheckPreconditions">
