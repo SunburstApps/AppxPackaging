@@ -45,13 +45,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Sunburst.AppxPackaging.Uwp.targets">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="UwpSdks\15063.targets">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="Sunburst.AppxPackaging.Uwp.targets" />
+    <None Include="UwpSdks\15063.targets" />
     <None Include="UwpSdks\14393.targets" />
+    <None Include="UwpSdks\16299.targets" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers">

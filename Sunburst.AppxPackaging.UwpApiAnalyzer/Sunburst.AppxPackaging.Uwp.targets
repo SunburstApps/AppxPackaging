@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <AppxTargetApiVersion Condition="'$(AppxTargetApiVersion)' == ''">15063</AppxTargetApiVersion>
+    <AppxTargetApiVersion Condition="'$(AppxTargetApiVersion)' == ''">16299</AppxTargetApiVersion>
   </PropertyGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)UwpSdks\$(AppxTargetApiVersion).targets" />
