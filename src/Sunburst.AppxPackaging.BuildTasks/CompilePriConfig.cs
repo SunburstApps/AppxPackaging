@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
@@ -52,5 +53,8 @@ namespace Sunburst.AppxPackaging.BuildTasks
 
             return path;
         }
+
+        protected override Encoding StandardOutputEncoding => Encoding.Unicode;
+        protected override Encoding StandardErrorEncoding => Encoding.Unicode;
     }
 }

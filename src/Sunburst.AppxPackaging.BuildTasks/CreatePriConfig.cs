@@ -40,5 +40,8 @@ namespace Sunburst.AppxPackaging.BuildTasks
 
             return string.Join(" ", argv.Select(arg => $"\"{arg}\""));
         }
+
+        protected override Encoding StandardOutputEncoding => Encoding.Unicode;
+        protected override Encoding StandardErrorEncoding => Encoding.Unicode;
     }
 }
