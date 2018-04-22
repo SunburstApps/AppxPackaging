@@ -27,7 +27,9 @@ namespace Sunburst.AppxPackaging.BuildTasks
 
             foreach (ITaskItem input in InputFiles)
             {
+                Log.LogMessage(MessageImportance.Normal, "Processing {0}", input.GetMetadata("FullPath"));
                 string[] fileContents = File.ReadAllLines(input.GetMetadata("FullPath"));
+                if (fileContents == null) throw new InvalidOperationException("fileContents is null, this shouldn't happen");
                 XDocument doc = new XDocument();
                 XElement root = new XElement(XName.Get("root", ""));
                 doc.Add(root);
@@ -42,13 +44,14 @@ namespace Sunburst.AppxPackaging.BuildTasks
                     if (trimmedLine.Length == 0) continue;
                     if (trimmedLine.StartsWith(";") || trimmedLine.StartsWith("#")) continue;
 
-                    string[] parts = line.Split(';');
+                    string[] parts = line.Split('=');
                     string key = parts.First().Trim();
                     string content = string.Join("=", parts.Skip(1)).Trim();
+                    Log.LogMessage(MessageImportance.Normal, "-> Adding {0} = {1}", key, content);
 
                     XElement valueElem = new XElement(name_value, content);
                     XElement dataElem = new XElement(name_data, valueElem);
-                    dataElem.Attribute(name_attr).Value = key;
+                    dataElem.Add(new XAttribute(name_attr, key));
                     root.Add(dataElem);
                 }
 
@@ -64,6 +67,7 @@ namespace Sunburst.AppxPackaging.BuildTasks
                 }
 
                 string outputFile = Path.Combine(outputPath, "Strings", localeName, outputFileName + ".resw");
+                Log.LogMessage(MessageImportance.Normal, "-> Writing to {0}", outputFile);
                 Directory.CreateDirectory(Path.GetDirectoryName(outputFile));
                 doc.Save(outputFile);
             }
