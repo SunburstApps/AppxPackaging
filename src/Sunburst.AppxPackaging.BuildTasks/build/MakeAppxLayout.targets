@@ -100,5 +100,5 @@
   </Target>
 
   <Target Name="MakeAppxLayout" DependsOnTargets="AppxCreatePackageLayout; AppxCompilePriConfig" />
-  <Target Name="CreateAppXLayoutOnBuild" DependsOnTargets="MakeAppxLayout" Condition="'$(CreateAppXLayoutOnBuild)' == 'true'" />
+  <Target Name="CreateAppXLayoutOnBuild" DependsOnTargets="MakeAppxLayout" AfterTargets="Build" Condition="'$(CreateAppXLayoutOnBuild)' == 'true'" />
 </Project>
