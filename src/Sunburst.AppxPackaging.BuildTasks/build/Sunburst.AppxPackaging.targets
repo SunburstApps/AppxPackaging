@@ -3,6 +3,11 @@
     <AppxBuildTasksAssembly>$(MSBuildThisFileDirectory)\netstandard2.0\Sunburst.AppxPackaging.BuildTasks.dll</AppxBuildTasksAssembly>
   </PropertyGroup>
 
+  <ItemGroup>
+    <AvailableItemName Include="AppxManifest" />
+    <AvailableItemName Include="AppxVisualAsset" />
+  </ItemGroup>
+
   <Import Project="$(MSBuildThisFileDirectory)/GetProjectFiles.targets" />
   <Import Project="$(MSBuildThisFileDirectory)/MakeAppxLayout.targets" />
 </Project>
