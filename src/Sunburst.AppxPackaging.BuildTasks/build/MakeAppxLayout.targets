@@ -69,7 +69,7 @@
 
       <Content Include="@(_ProjectFile)">
         <CopyToAppX>true</CopyToAppX>
-        <Destination>%(Destination)</Destination>
+        <Destination>%(_ProjectFile.Destination)</Destination>
       </Content>
     </ItemGroup>
 
