@@ -19,6 +19,7 @@
   <UsingTask AssemblyFile="$(AppxBuildTasksAssembly)" TaskName="Sunburst.AppxPackaging.BuildTasks.CreateReswFiles" />
   <UsingTask AssemblyFile="$(AppxBuildTasksAssembly)" TaskName="Sunburst.AppxPackaging.BuildTasks.CreatePriConfig" />
   <UsingTask AssemblyFile="$(AppxBuildTasksAssembly)" TaskName="Sunburst.AppxPackaging.BuildTasks.CompilePriConfig" />
+  <UsingTask AssemblyFile="$(AppxBuildTasksAssembly)" TaskName="Sunburst.AppxPackaging.BuildTasks.PackAppx" />
 
   <Target Name="AppxCheckPreconditions">
     <Error Text="An AppxManifest item must be specified." Condition="'@(AppxManifest)' == ''" />
@@ -104,8 +105,19 @@
   </Target>
 
   <Target Name="AppxCompilePriConfig" DependsOnTargets="AppxCheckPreconditions; AppxCreatePriConfig">
+    <ItemGroup>
+      <_OldPriFile Include="$(AppxPackageLayoutDir)resources*.pri" />
+      <_OldPriFile Include="$(AppxPackageLayoutDir)resources*.map.txt" />
+    </ItemGroup>
+
+    <Delete Files="@(_OldPriFile)" />
     <CompilePriConfig PackageLayout="$(AppxPackageLayoutDir)" ConfigFile="$(AppxPackageRoot)FatPackage.xml" OutputFile="$(AppxPackageLayoutDir)resources.pri"
                       ToolsVersion="$(AppxBuildToolsVersion)" StandardOutputImportance="normal" StandardErrorImportance="high" />
+  </Target>
+
+  <Target Name="PackAppx" DependsOnTargets="MakeAppxLayout">
+    <PackAppx ManifestFile="$(AppxPackageLayoutDir)AppxManifest.xml" ResourceLayoutFile="$(AppxPackageLayoutDir)resources.map.txt"
+              OutputFile="$(OutputPath)$(TargetName).appx" ToolsVersion="$(AppxBuildToolsVersion)" />
   </Target>
 
   <Target Name="MakeAppxLayout" DependsOnTargets="AppxCreatePackageLayout; AppxCompilePriConfig" />
