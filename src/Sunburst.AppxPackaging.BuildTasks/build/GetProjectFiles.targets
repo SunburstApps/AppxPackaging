@@ -6,14 +6,12 @@
     
     <ItemGroup>
       <_AppxProjectFile Include="@(_AppXProjectFileWithoutMetadata)">
-        <ProjectPath>$(MSBuildProjectDirectory)\$(MSBuildProjectName)$(MSBuildProjectExtension)</ProjectPath>
         <Destination>$(_AppXDestination)</Destination>
       </_AppxProjectFile>
     </ItemGroup>
 
     <ItemGroup Condition="Exists('$(TargetPath).config')">
       <_AppxProjectFile Include="$(TargetPath).config">
-        <ProjectPath>$(MSBuildProjectDirectory)\$(MSBuildProjectName)$(MSBuildProjectExtension)</ProjectPath>
         <Destination>$(_AppXDestination)</Destination>
       </_AppxProjectFile>
     </ItemGroup>
@@ -23,7 +21,6 @@
     </ItemGroup>
     <ItemGroup>
       <_AppxProjectFile Include="@(_Satellites)">
-        <ProjectPath>$(MSBuildProjectDirectory)\$(MSBuildProjectName)$(MSBuildProjectExtension)</ProjectPath>
         <Destination>$(_AppXDestination)\%(_Satellites.Culture)</Destination>
       </_AppxProjectFile>
     </ItemGroup>
