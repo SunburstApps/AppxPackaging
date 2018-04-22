@@ -4,5 +4,5 @@
   </PropertyGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)/GetProjectFiles.targets" />
-  <Import Project="$(MSBuildThisFileDirectory)/MakeAppx.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)/MakeAppxLayout.targets" />
 </Project>
