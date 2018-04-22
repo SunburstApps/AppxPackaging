@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{728919B1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sunburst.AppxPackaging.PriResourceResolver", "src\Sunburst.AppxPackaging.PriResourceResolver\Sunburst.AppxPackaging.PriResourceResolver.csproj", "{2D62FBF2-A4FA-44B6-9343-DF9A53BE1F57}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sunburst.AppxPackaging.BuildTasks", "src\Sunburst.AppxPackaging.BuildTasks\Sunburst.AppxPackaging.BuildTasks.csproj", "{A3271229-9B2A-49F7-8001-DE6D558676C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{2D62FBF2-A4FA-44B6-9343-DF9A53BE1F57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D62FBF2-A4FA-44B6-9343-DF9A53BE1F57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D62FBF2-A4FA-44B6-9343-DF9A53BE1F57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3271229-9B2A-49F7-8001-DE6D558676C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3271229-9B2A-49F7-8001-DE6D558676C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3271229-9B2A-49F7-8001-DE6D558676C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3271229-9B2A-49F7-8001-DE6D558676C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

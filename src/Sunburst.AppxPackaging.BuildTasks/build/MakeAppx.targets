@@ -1,14 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+<Project>
   <PropertyGroup>
     <AppxPackageRoot Condition="'$(AppxPackageRoot)' == ''">$(SolutionDir)bin\$(AppxPackageName)\</AppxPackageRoot>
     <AppxPackageLayoutDir Condition="'$(AppxPackageLayoutDir)' == ''">$(AppxPackageRoot)Layout</AppxPackageLayoutDir>
 
-    <AppxTasksAssembly>$(MSBuildThisFileDirectory)..\bin\$(Configuration)\Sunburst.AppxPackaging.Tasks.dll</AppxTasksAssembly>
+    <AppxTasksAssembly>$(MSBuildThisFileDirectory)\netstandard2.0\Sunburst.AppxPackaging.BuildTasks.dll</AppxTasksAssembly>
   </PropertyGroup>
 
-  <UsingTask AssemblyFile="$(AppxTasksAssembly)" TaskName="Sunburst.AppxPackaging.Tasks.CreatePriConfig" />
-  <UsingTask AssemblyFile="$(AppxTasksAssembly)" TaskName="Sunburst.AppxPackaging.Tasks.CompilePriConfig" />
+  <UsingTask AssemblyFile="$(AppxTasksAssembly)" TaskName="Sunburst.AppxPackaging.BuildTasks.CreatePriConfig" />
+  <UsingTask AssemblyFile="$(AppxTasksAssembly)" TaskName="Sunburst.AppxPackaging.BuildTasks.CompilePriConfig" />
 
   <Target Name="AppxCheckPreconditions">
     <Error Text="You must specify a package name." Condition="'$(AppxPackageName)' == ''" />
@@ -46,21 +45,29 @@
       <_ProjectFile Remove="@(_ProjectFile)" Condition="'%(Extension)' == '.pdb'" />
     </ItemGroup>
 
-    <Copy SourceFiles="@(_ProjectFile)" DestinationFolder="%(Destination)" />
+    <!-- Add the content files files. -->
+    <ItemGroup>
+      <Content Include="@(AppxVisualAsset)">
+        <CopyToAppX>true</CopyToAppX>
+        <DestinationFile>Assets/%(FileName)%(Extension)</DestinationFile>
+      </Content>
 
-    <!-- Copy the visual asset files. -->
-    <Copy SourceFiles="@(VisualAsset)" DestinationFolder="$(AppxPackageLayoutDir)\Assets" />
+      <Content Include="@(_ProjectFile)">
+        <CopyToAppX>true</CopyToAppX>
+        <Destination>%(Destination)</Destination>
+      </Content>
+    </ItemGroup>
 
     <!-- Copy the content files. -->
     <ItemGroup>
-      <_ContentWithDestination Include="@(Content)" Condition="'%(Content.VFSTargetDir)' != ''">
-        <Destination>$(AppxPackageLayoutDir)\VFS\%(Content.VFSTargetDir)</Destination>
-      </_ContentWithDestination>
-      <_ContentWithDestination Include="@(Content)" Condition="'%(Content.Destination)' != ''">
-        <Destination>$(AppxPackageLayoutDir)\%(Destination)</Destination>
-      </_ContentWithDestination>
+      <_ContentWithDestinationFile Include="@(Content)" Condition="'%(Content.CopyToAppX)' == 'true' and '%(Content.Destination)' != '' and '%(Content.DestinationFile)' == ''">
+        <DestinationFile>$(AppxPackageLayoutDir)\%(Destination)\%(FileName)%(Extension)</DestinationFile>
+      </_ContentWithDestinationFile>
+      <_ContentWithDestinationFile Include="@(Content)" Condition="'%(Content.CopyToAppX)' == 'true' and '%(Content.DestinationFile)' != ''">
+        <DestinationFile>$(AppxPackageLayoutDir)\%(DestinationFile)</DestinationFile>
+      </_ContentWithDestinationFile>
     </ItemGroup>
-    <Copy SourceFiles="@(_ContentWithDestination)" DestinationFolder="%(Destination)" />
+    <Copy SourceFiles="@(_ContentWithDestinationFile)" DestinationFiles="%(DestinationFile)" />
 
     <!-- Copy the AppX manifest. -->
     <Copy SourceFiles="@(AppxManifest)" DestinationFolder="$(AppxPackageLayoutDir)" />
@@ -81,11 +88,5 @@
                       StandardOutputImportance="normal" StandardErrorImportance="high" />
   </Target>
 
-  <Target Name="Build" DependsOnTargets="AppxCreatePackageLayout; AppxCompilePriConfig" />
-
-  <Target Name="Clean">
-    <RemoveDir Directories="$(AppxPackageRoot)" />
-  </Target>
-
-  <Target Name="Rebuild" DependsOnTargets="Clean;Build"/>
+  <Target Name="MakeAppxLayout" DependsOnTargets="AppxCreatePackageLayout; AppxCompilePriConfig" />
 </Project>

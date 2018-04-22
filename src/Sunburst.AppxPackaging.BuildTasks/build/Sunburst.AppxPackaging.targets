@@ -1,0 +1,4 @@
+<Project>
+  <Import Project="$(MSBuildThisFileDirectory)/GetProjectFiles.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)/MakeAppx.targets" />
+</Project>

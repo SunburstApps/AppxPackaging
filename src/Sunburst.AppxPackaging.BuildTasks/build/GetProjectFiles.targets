@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project>
   <Target Name="_AppxPackageGetProjectFiles" DependsOnTargets="ResolveReferences;GenerateSatelliteAssemblies;_CopyAppConfigFile" Returns="@(_AppxProjectFile)">
     <RemoveDuplicates Inputs="@(ReferenceCopyLocalPaths);@(ReferenceSatellitePaths);$(TargetPath)">
       <Output TaskParameter="Filtered" ItemName="_AppXProjectFileWithoutMetadata"/>

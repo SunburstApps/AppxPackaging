@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Sunburst.AppxPackaging.BuildTasks</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <EnableDefaultNoneItems>false</EnableDefaultNoneItems>
+    <BuildOutputTargetFolder>build</BuildOutputTargetFolder>
+
+    <Title>Sunburst AppX Packaging Build Tasks</Title>
+    <Authors>William Kent</Authors>
+    <Description>This package contains MSBuild tasks that create a Desktop Bridge (Centennial) application package.</Description>
+    <Copyright>Copyright © 2018 William Kent. Licensed under the Apache License.</Copyright>
+    <PackageTags>uwp;centennial;appx;desktop-bridge</PackageTags>
+    <Version>1.0.0</Version>
+
+    <PackageProjectUrl>https://github.com/SunburstApps/AppxPackaging</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/SunburstApps/AppxPackaging/blob/master/LICENSE.txt</PackageLicenseUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Build.Framework" Version="15.5.180" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="15.5.180" PrivateAssets="all" />
+
+    <Content Include="build/**/*.props" Pack="true" PackagePath="build/%(RecursiveDir)" />
+    <Content Include="build/**/*.targets" Pack="true" PackagePath="build/%(RecursiveDir)" />
+  </ItemGroup>
+</Project>
