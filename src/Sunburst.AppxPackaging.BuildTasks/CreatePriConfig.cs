@@ -15,7 +15,6 @@ namespace Sunburst.AppxPackaging.BuildTasks
         public ITaskItem ConfigFilePath { get; set; }
         [Required]
         public string ToolsVersion { get; set; }
-        public string TargetVersion { get; set; } = null;
 
         protected override string ToolName => "makepri.exe";
 
@@ -29,8 +28,6 @@ namespace Sunburst.AppxPackaging.BuildTasks
             StringBuilder qualifierString = new StringBuilder();
             qualifierString.Append(string.Join("_", LanguageQualifiers.Where(x => !string.IsNullOrWhiteSpace(x))));
 
-            string runtimeVersion = TargetVersion ?? "10.0";
-
             List<string> argv = new List<string>();
             argv.Add("createconfig");
             argv.Add("/cf");
@@ -38,7 +35,7 @@ namespace Sunburst.AppxPackaging.BuildTasks
             argv.Add("/dq");
             argv.Add(qualifierString.ToString());
             argv.Add("/pv");
-            argv.Add(runtimeVersion);
+            argv.Add("10.0");
             argv.Add("/o");
 
             return string.Join(" ", argv.Select(arg => $"\"{arg}\""));
