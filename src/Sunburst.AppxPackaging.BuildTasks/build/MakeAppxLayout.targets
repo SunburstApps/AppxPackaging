@@ -48,7 +48,7 @@
       <_ProjectFile Remove="@(_ProjectFile)" Condition="'%(Extension)' == '.pdb'" />
     </ItemGroup>
 
-    <!-- Add the content files files. -->
+    <!-- Add the content files. -->
     <ItemGroup>
       <Content Include="@(AppxVisualAsset)">
         <CopyToAppX>true</CopyToAppX>
