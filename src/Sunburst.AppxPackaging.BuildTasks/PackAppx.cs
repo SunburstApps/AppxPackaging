@@ -42,17 +42,5 @@ namespace Sunburst.AppxPackaging.BuildTasks
 
             return string.Join(" ", argv.Select(x => $"\"{x}\""));
         }
-
-        private static string GetFullPath(ITaskItem item)
-        {
-            string path = item.GetMetadata("FullPath");
-
-            // MakePri.exe chokes if an argument ends with a backslash, followed immediately by
-            // a double-quote. I must therefore remove any trailing backslashes from the paths.
-            if (path.EndsWith(System.IO.Path.DirectorySeparatorChar.ToString()))
-                path = path.Substring(0, path.Length - 1);
-
-            return path;
-        }
     }
 }
