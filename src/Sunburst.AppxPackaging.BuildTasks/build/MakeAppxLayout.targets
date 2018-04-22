@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <AppxPackageRoot Condition="'$(AppxPackageRoot)' == ''">$(SolutionDir)bin\$(AppxPackageName)\</AppxPackageRoot>
+    <AppxPackageRoot Condition="'$(AppxPackageRoot)' == ''">$(OutputPath)\AppX\</AppxPackageRoot>
     <AppxPackageLayoutDir Condition="'$(AppxPackageLayoutDir)' == ''">$(AppxPackageRoot)Layout</AppxPackageLayoutDir>
 
     <CreateAppXPackageOnBuild Condition="'$(CreateAppXPackageOnBuild)' == ''">false</CreateAppXPackageOnBuild>
