@@ -1,4 +1,8 @@
 <Project>
+  <PropertyGroup>
+    <AppxBuildTasksAssembly>$(MSBuildThisFileDirectory)\netstandard2.0\Sunburst.AppxPackaging.BuildTasks.dll</AppxBuildTasksAssembly>
+  </PropertyGroup>
+
   <Import Project="$(MSBuildThisFileDirectory)/GetProjectFiles.targets" />
   <Import Project="$(MSBuildThisFileDirectory)/MakeAppx.targets" />
 </Project>

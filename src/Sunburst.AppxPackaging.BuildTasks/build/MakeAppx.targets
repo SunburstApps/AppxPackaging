@@ -3,12 +3,11 @@
     <AppxPackageRoot Condition="'$(AppxPackageRoot)' == ''">$(SolutionDir)bin\$(AppxPackageName)\</AppxPackageRoot>
     <AppxPackageLayoutDir Condition="'$(AppxPackageLayoutDir)' == ''">$(AppxPackageRoot)Layout</AppxPackageLayoutDir>
 
-    <AppxTasksAssembly>$(MSBuildThisFileDirectory)\netstandard2.0\Sunburst.AppxPackaging.BuildTasks.dll</AppxTasksAssembly>
     <CreateAppXPackageOnBuild Condition="'$(CreateAppXPackageOnBuild)' == ''">false</CreateAppXPackageOnBuild>
   </PropertyGroup>
 
-  <UsingTask AssemblyFile="$(AppxTasksAssembly)" TaskName="Sunburst.AppxPackaging.BuildTasks.CreatePriConfig" />
-  <UsingTask AssemblyFile="$(AppxTasksAssembly)" TaskName="Sunburst.AppxPackaging.BuildTasks.CompilePriConfig" />
+  <UsingTask AssemblyFile="$(AppxBuildTasksAssembly)" TaskName="Sunburst.AppxPackaging.BuildTasks.CreatePriConfig" />
+  <UsingTask AssemblyFile="$(AppxBuildTasksAssembly)" TaskName="Sunburst.AppxPackaging.BuildTasks.CompilePriConfig" />
 
   <Target Name="AppxCheckPreconditions">
     <Error Text="You must specify a package name." Condition="'$(AppxPackageName)' == ''" />
