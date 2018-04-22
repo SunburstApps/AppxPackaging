@@ -7,6 +7,15 @@
     <AppxReswDefaultLanguage Condition="'$(AppxReswDefaultLanguage)' == ''">en-US</AppxReswDefaultLanguage>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(AppxBuildToolsVersion)' == ''">
+    <!-- Reference the latest version that is installed on the user's machine. -->
+    <AppxBuildToolsVersion Condition="Exists('$(MSBuildProgramFiles32)\Windows Kits\10\UnionMetadata\10.0.16299.0\Windows.winmd') and '$(AppxTargetApiVersion)' == ''">10.0.16299.0</AppxBuildToolsVersion>
+    <AppxBuildToolsVersion Condition="Exists('$(MSBuildProgramFiles32)\Windows Kits\10\UnionMetadata\10.0.15063.0\Windows.winmd') and '$(AppxTargetApiVersion)' == ''">10.0.15063.0</AppxBuildToolsVersion>
+    <AppxBuildToolsVersion Condition="Exists('$(MSBuildProgramFiles32)\Windows Kits\10\UnionMetadata\10.0.14393.0\Windows.winmd') and '$(AppxTargetApiVersion)' == ''">10.0.14393.0</AppxBuildToolsVersion>
+    <AppxBuildToolsVersion Condition="Exists('$(MSBuildProgramFiles32)\Windows Kits\10\UnionMetadata\10.0.10586.0\Windows.winmd') and '$(AppxTargetApiVersion)' == ''">10.0.10586.0</AppxBuildToolsVersion>
+    <AppxBuildToolsVersion Condition="Exists('$(MSBuildProgramFiles32)\Windows Kits\10\UnionMetadata\10.0.10240.0\Windows.winmd') and '$(AppxTargetApiVersion)' == ''">10.0.10240.0</AppxBuildToolsVersion>
+  </PropertyGroup>
+
   <UsingTask AssemblyFile="$(AppxBuildTasksAssembly)" TaskName="Sunburst.AppxPackaging.BuildTasks.CreateReswFiles" />
   <UsingTask AssemblyFile="$(AppxBuildTasksAssembly)" TaskName="Sunburst.AppxPackaging.BuildTasks.CreatePriConfig" />
   <UsingTask AssemblyFile="$(AppxBuildTasksAssembly)" TaskName="Sunburst.AppxPackaging.BuildTasks.CompilePriConfig" />
@@ -86,17 +95,17 @@
 
   <Target Name="AppxCreatePriConfig" DependsOnTargets="AppxCheckPreconditions; AppxCompileReswFiles">
     <PropertyGroup>
-      <AppxPriLanguages Condition="'$(AppxPriLanguages)' == ''">en-US</AppxPriLanguages>
+      <AppxPriLanguages Condition="'$(AppxPriLanguages)' == ''">$(AppxReswDefaultLanguage)</AppxPriLanguages>
     </PropertyGroup>
 
     <MakeDir Directories="$(AppxPackageRoot)Fat" Condition="!Exists('$(AppxPackageRoot)Fat')" />
     <CreatePriConfig LanguageQualifiers="$(AppxPriLanguages)" TargetVersion="$(AppxPriTargetVersion)" ConfigFilePath="$(AppxPackageRoot)FatPackage.xml"
-                     StandardOutputImportance="normal" StandardErrorImportance="high" />
+                     ToolsVersion="$(AppxBuildToolsVersion)" StandardOutputImportance="normal" StandardErrorImportance="high" />
   </Target>
 
   <Target Name="AppxCompilePriConfig" DependsOnTargets="AppxCheckPreconditions; AppxCreatePriConfig">
     <CompilePriConfig PackageLayout="$(AppxPackageLayoutDir)" ConfigFile="$(AppxPackageRoot)FatPackage.xml" OutputFile="$(AppxPackageLayoutDir)resources.pri"
-                      StandardOutputImportance="normal" StandardErrorImportance="high" />
+                      ToolsVersion="$(AppxBuildToolsVersion)" StandardOutputImportance="normal" StandardErrorImportance="high" />
   </Target>
 
   <Target Name="MakeAppxLayout" DependsOnTargets="AppxCreatePackageLayout; AppxCompilePriConfig" />

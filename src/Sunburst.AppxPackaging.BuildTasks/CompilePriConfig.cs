@@ -13,12 +13,14 @@ namespace Sunburst.AppxPackaging.BuildTasks
         public ITaskItem ConfigFile { get; set; }
         [Required]
         public ITaskItem OutputFile { get; set; }
+        [Required]
+        public string ToolsVersion { get; set; }
 
         protected override string ToolName => "makepri.exe";
 
         protected override string GenerateFullPathToTool()
         {
-            return @"C:\Program Files (x86)\Windows Kits\10\bin\10.0.15063.0\x86\makepri.exe";
+            return $@"C:\Program Files (x86)\Windows Kits\10\bin\{ToolsVersion}\x86\makepri.exe";
         }
 
         protected override string GenerateCommandLineCommands()
