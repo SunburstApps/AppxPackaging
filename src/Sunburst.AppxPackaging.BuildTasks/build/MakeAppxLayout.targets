@@ -63,7 +63,7 @@
     <ItemGroup>
       <Content Include="@(AppxVisualAsset)">
         <CopyToAppX>true</CopyToAppX>
-        <Destination>Assets/%(FileName)%(Extension)</Destination>
+        <Destination>Assets</Destination>
       </Content>
 
       <Content Include="@(_ProjectFile)">
