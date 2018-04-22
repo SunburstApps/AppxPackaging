@@ -4,8 +4,10 @@
     <AppxPackageLayoutDir Condition="'$(AppxPackageLayoutDir)' == ''">$(AppxPackageRoot)Layout</AppxPackageLayoutDir>
 
     <CreateAppXPackageOnBuild Condition="'$(CreateAppXPackageOnBuild)' == ''">false</CreateAppXPackageOnBuild>
+    <AppxReswDefaultLanguage Condition="'$(AppxReswDefaultLanguage)' == ''">en-US</AppxReswDefaultLanguage>
   </PropertyGroup>
 
+  <UsingTask AssemblyFile="$(AppxBuildTasksAssembly)" TaskName="Sunburst.AppxPackaging.BuildTasks.CreateReswFiles" />
   <UsingTask AssemblyFile="$(AppxBuildTasksAssembly)" TaskName="Sunburst.AppxPackaging.BuildTasks.CreatePriConfig" />
   <UsingTask AssemblyFile="$(AppxBuildTasksAssembly)" TaskName="Sunburst.AppxPackaging.BuildTasks.CompilePriConfig" />
 
@@ -52,7 +54,7 @@
     <ItemGroup>
       <Content Include="@(AppxVisualAsset)">
         <CopyToAppX>true</CopyToAppX>
-        <DestinationFile>Assets/%(FileName)%(Extension)</DestinationFile>
+        <Destination>Assets/%(FileName)%(Extension)</Destination>
       </Content>
 
       <Content Include="@(_ProjectFile)">
@@ -64,10 +66,10 @@
     <!-- Copy the content files. -->
     <ItemGroup>
       <_ContentWithDestinationFile Include="@(Content)" Condition="'%(Content.CopyToAppX)' == 'true' and '%(Content.Destination)' != '' and '%(Content.DestinationFile)' == ''">
-        <DestinationFile>$(AppxPackageLayoutDir)\%(Destination)\%(FileName)%(Extension)</DestinationFile>
+        <DestinationFile>$(AppxPackageLayoutDir)\%(Content.Destination)\%(FileName)%(Extension)</DestinationFile>
       </_ContentWithDestinationFile>
       <_ContentWithDestinationFile Include="@(Content)" Condition="'%(Content.CopyToAppX)' == 'true' and '%(Content.DestinationFile)' != ''">
-        <DestinationFile>$(AppxPackageLayoutDir)\%(DestinationFile)</DestinationFile>
+        <DestinationFile>$(AppxPackageLayoutDir)\%(Content.DestinationFile)</DestinationFile>
       </_ContentWithDestinationFile>
     </ItemGroup>
     <Copy SourceFiles="@(_ContentWithDestinationFile)" DestinationFiles="%(DestinationFile)" />
@@ -76,7 +78,13 @@
     <Copy SourceFiles="@(AppxManifest)" DestinationFolder="$(AppxPackageLayoutDir)" />
   </Target>
 
-  <Target Name="AppxCreatePriConfig" DependsOnTargets="AppxCheckPreconditions">
+  <Target Name="AppxCompileReswFiles" DependsOnTargets="AppxCheckPreconditions" Condition="'@(AppxStringResource)' != ''">
+    <CreateReswFiles InputFiles="@(AppxStringResource)" OutputDirectory="$(AppxPackageLayoutDir)" DefaultLanguage="$(AppxReswDefaultLanguage)">
+      <Output TaskParameter="AppxPriLanguages" PropertyName="AppxPriLanguages" />
+    </CreateReswFiles>
+  </Target>
+
+  <Target Name="AppxCreatePriConfig" DependsOnTargets="AppxCheckPreconditions; AppxCompileReswFiles">
     <PropertyGroup>
       <AppxPriLanguages Condition="'$(AppxPriLanguages)' == ''">en-US</AppxPriLanguages>
     </PropertyGroup>

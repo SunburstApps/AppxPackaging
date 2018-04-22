@@ -6,6 +6,7 @@
   <ItemGroup>
     <AvailableItemName Include="AppxManifest" />
     <AvailableItemName Include="AppxVisualAsset" />
+    <AvailableItemName Include="AppxStringResource" />
   </ItemGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)/GetProjectFiles.targets" />
