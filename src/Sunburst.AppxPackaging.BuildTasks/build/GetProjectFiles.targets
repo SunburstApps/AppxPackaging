@@ -1,22 +1,14 @@
 <Project>
-  <UsingTask AssemblyFile="$(AppxBuildTasksAssembly)" TaskName="Sunburst.AppxPackaging.BuildTasks.AppxConvertTargetPaths" />
+  <UsingTask AssemblyFile="$(AppxBuildTasksAssembly)" TaskName="Sunburst.AppxPackaging.BuildTasks.AppxConvertContentItems" />
 
-  <Target Name="_AppxPackageGetProjectFiles" DependsOnTargets="ResolveReferences;GenerateSatelliteAssemblies;_CopyAppConfigFile" Returns="@(_AppxProjectFile)">
+  <Target Name="_AppxPackageGetProjectFiles" DependsOnTargets="PrepareForBuild;ResolveReferences;GenerateSatelliteAssemblies;_CopyAppConfigFile" Returns="@(_AppxProjectFile)">
     <RemoveDuplicates Inputs="@(ReferenceCopyLocalPaths);@(ReferenceSatellitePaths);$(TargetPath)">
       <Output TaskParameter="Filtered" ItemName="_AppXProjectFileWithoutMetadata"/>
     </RemoveDuplicates>
 
-    <MSBuild Projects="$(MSBuildProjectFullPath)" Targets="GetItemTargetPaths">
-      <Output TaskParameter="TargetOutputs" ItemName="_AppxItemWithTargetPath" />
-    </MSBuild>
-    <AppxConvertTargetPaths InputItems="@(_AppxItemWithTargetPath)" RootDestination="$(_AppXDestination)">
-      <Output TaskParameter="OutputItems" ItemName="_PossibleAppxProjectFile" />
-    </AppxConvertTargetPaths>
-    <ItemGroup>
-      <_AppxProjectFile Include="@(_PossibleAppxProjectFile)" Condition="Exists('%(Identity)')">
-        <Destination>%(_PossibleAppxProjectFile.Destination)</Destination>
-      </_AppxProjectFile>
-    </ItemGroup>
+    <AppxConvertContentItems InputItems="@(Content);@(None)" RootDestination="$(_AppXDestination)">
+      <Output TaskParameter="OutputItems" ItemName="_AppxProjectFile" />
+    </AppxConvertContentItems>
 
     <ItemGroup>
       <_AppxProjectFile Include="@(_AppXProjectFileWithoutMetadata)">
