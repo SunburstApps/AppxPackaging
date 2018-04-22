@@ -4,6 +4,7 @@
     <AppxPackageLayoutDir Condition="'$(AppxPackageLayoutDir)' == ''">$(AppxPackageRoot)Layout</AppxPackageLayoutDir>
 
     <AppxTasksAssembly>$(MSBuildThisFileDirectory)\netstandard2.0\Sunburst.AppxPackaging.BuildTasks.dll</AppxTasksAssembly>
+    <CreateAppXPackageOnBuild Condition="'$(CreateAppXPackageOnBuild)' == ''">false</CreateAppXPackageOnBuild>
   </PropertyGroup>
 
   <UsingTask AssemblyFile="$(AppxTasksAssembly)" TaskName="Sunburst.AppxPackaging.BuildTasks.CreatePriConfig" />
@@ -13,6 +14,7 @@
     <Error Text="You must specify a package name." Condition="'$(AppxPackageName)' == ''" />
     <Error Text="An AppxManifest item must be specified." Condition="'@(AppxManifest)' == ''" />
     <Error Text="Only one AppxManifest item may be specified (there are @(AppxManifest -> Count()))." Condition="'@(AppxManifest -> Count())' != '1'" />
+    <Error Text="You must specify the AppXDestination property if IncludeBuildOutputInAppXPackage is true" Condition="'$(IncludeBuildOutputInAppXPackage)' == 'true' and '$(AppXDestination)' == ''" />
 
     <PropertyGroup>
       <AppxPackageRoot Condition="!HasTrailingSlash($(AppxPackageRoot))">$(AppxPackageRoot)\</AppxPackageRoot>
@@ -24,14 +26,17 @@
     <MakeDir Directories="$(AppxPackageLayoutDir)" />
 
     <!-- Build the project references. -->
-    <ItemGroup>
-      <_ProjectReferenceWithDestination Include="@(ProjectReference)" Condition="'%(ProjectReference.VFSTargetDir)' != ''">
-        <Destination>$(AppxPackageLayoutDir)\VFS\%(ProjectReference.VFSTargetDir)</Destination>
-      </_ProjectReferenceWithDestination>
-      <_ProjectReferenceWithDestination Include="@(ProjectReference)" Condition="'%(ProjectReference.Destination)' != ''">
-        <Destination>$(AppxPackageLayoutDir)\%(ProjectReference.Destination)</Destination>
+    <ItemGroup Condition="'$(IncludeBuildOutputInAppXPackage)' == 'true' and '$(AppXDestination)' != ''">
+      <_ProjectReferenceWithDestination Include="$(MSBuildProjectFullPath)">
+        <Destination>$(AppXDestination)</Destination>
       </_ProjectReferenceWithDestination>
     </ItemGroup>
+    <ItemGroup>
+      <_ProjectReferenceWithDestination Include="@(ProjectReference)" Condition="'%(ProjectReference.Destination)' != ''">
+        <Destination>%(ProjectReference.Destination)</Destination>
+      </_ProjectReferenceWithDestination>
+    </ItemGroup>
+
     <MSBuild Projects="@(_ProjectReferenceWithDestination)" Targets="_AppXPackageGetProjectFiles" Properties="_AppXDestination=%(Destination)">
       <Output TaskParameter="TargetOutputs" ItemName="_ProjectFileWithDuplicates" />
     </MSBuild>
@@ -89,4 +94,5 @@
   </Target>
 
   <Target Name="MakeAppxLayout" DependsOnTargets="AppxCreatePackageLayout; AppxCompilePriConfig" />
+  <Target Name="CreateAppXLayoutOnBuild" DependsOnTargets="MakeAppxLayout" Condition="'$(CreateAppXLayoutOnBuild)' == 'true'" />
 </Project>
