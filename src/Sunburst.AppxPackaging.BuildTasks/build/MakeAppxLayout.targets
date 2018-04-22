@@ -10,7 +10,6 @@
   <UsingTask AssemblyFile="$(AppxBuildTasksAssembly)" TaskName="Sunburst.AppxPackaging.BuildTasks.CompilePriConfig" />
 
   <Target Name="AppxCheckPreconditions">
-    <Error Text="You must specify a package name." Condition="'$(AppxPackageName)' == ''" />
     <Error Text="An AppxManifest item must be specified." Condition="'@(AppxManifest)' == ''" />
     <Error Text="Only one AppxManifest item may be specified (there are @(AppxManifest -> Count()))." Condition="'@(AppxManifest -> Count())' != '1'" />
     <Error Text="You must specify the AppXDestination property if IncludeBuildOutputInAppXPackage is true" Condition="'$(IncludeBuildOutputInAppXPackage)' == 'true' and '$(AppXDestination)' == ''" />
@@ -83,12 +82,12 @@
     </PropertyGroup>
 
     <MakeDir Directories="$(AppxPackageRoot)Fat" Condition="!Exists('$(AppxPackageRoot)Fat')" />
-    <CreatePriConfig LanguageQualifiers="$(AppxPriLanguages)" TargetVersion="$(AppxPriTargetVersion)" ConfigFilePath="$(AppxPackageRoot)Fat\$(AppxPackageName).xml"
+    <CreatePriConfig LanguageQualifiers="$(AppxPriLanguages)" TargetVersion="$(AppxPriTargetVersion)" ConfigFilePath="$(AppxPackageRoot)FatPackage.xml"
                      StandardOutputImportance="normal" StandardErrorImportance="high" />
   </Target>
 
   <Target Name="AppxCompilePriConfig" DependsOnTargets="AppxCheckPreconditions; AppxCreatePriConfig">
-    <CompilePriConfig PackageLayout="$(AppxPackageLayoutDir)" ConfigFile="$(AppxPackageRoot)Fat\$(AppxPackageName).xml" OutputFile="$(AppxPackageLayoutDir)resources.pri"
+    <CompilePriConfig PackageLayout="$(AppxPackageLayoutDir)" ConfigFile="$(AppxPackageRoot)FatPackage.xml" OutputFile="$(AppxPackageLayoutDir)resources.pri"
                       StandardOutputImportance="normal" StandardErrorImportance="high" />
   </Target>
 
