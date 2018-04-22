@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{728919B1
 		NuGet.config = NuGet.config
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sunburst.AppxPackaging.PriResourceResolver", "src\Sunburst.AppxPackaging.PriResourceResolver\Sunburst.AppxPackaging.PriResourceResolver.csproj", "{2D62FBF2-A4FA-44B6-9343-DF9A53BE1F57}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{1430079B-1B3B-4C65-875F-261AABE50C06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1430079B-1B3B-4C65-875F-261AABE50C06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1430079B-1B3B-4C65-875F-261AABE50C06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D62FBF2-A4FA-44B6-9343-DF9A53BE1F57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D62FBF2-A4FA-44B6-9343-DF9A53BE1F57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D62FBF2-A4FA-44B6-9343-DF9A53BE1F57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D62FBF2-A4FA-44B6-9343-DF9A53BE1F57}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
