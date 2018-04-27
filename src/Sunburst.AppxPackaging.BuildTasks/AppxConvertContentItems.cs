@@ -33,6 +33,10 @@ namespace Sunburst.AppxPackaging.BuildTasks
                 {
                     destination = Path.Combine(RootDestination, Path.GetDirectoryName(link));
                 }
+                else if (!string.IsNullOrEmpty(Path.GetDirectoryName(item.ItemSpec)))
+                {
+                    destination = Path.Combine(RootDestination, item.ItemSpec);
+                }
                 else
                 {
                     destination = RootDestination;
