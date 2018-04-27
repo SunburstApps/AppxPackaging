@@ -35,7 +35,7 @@ namespace Sunburst.AppxPackaging.BuildTasks
                 }
                 else if (!string.IsNullOrEmpty(Path.GetDirectoryName(item.ItemSpec)))
                 {
-                    destination = Path.Combine(RootDestination, item.ItemSpec);
+                    destination = Path.Combine(RootDestination, Path.GetDirectoryName(item.ItemSpec));
                 }
                 else
                 {
