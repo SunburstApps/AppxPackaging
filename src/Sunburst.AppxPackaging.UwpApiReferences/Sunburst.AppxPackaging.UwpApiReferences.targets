@@ -2,6 +2,7 @@
 <Project>
   <PropertyGroup Condition="'$(AppxTargetApiVersion)' == ''">
     <!-- Reference the latest version that is installed on the user's machine. -->
+    <AppxTargetApiVersion Condition="Exists('$(MSBuildProgramFiles32)\Windows Kits\10\UnionMetadata\10.0.17134.0\Windows.winmd') and '$(AppxTargetApiVersion)' == ''">10.0.17134.0</AppxTargetApiVersion>
     <AppxTargetApiVersion Condition="Exists('$(MSBuildProgramFiles32)\Windows Kits\10\UnionMetadata\10.0.16299.0\Windows.winmd') and '$(AppxTargetApiVersion)' == ''">10.0.16299.0</AppxTargetApiVersion>
     <AppxTargetApiVersion Condition="Exists('$(MSBuildProgramFiles32)\Windows Kits\10\UnionMetadata\10.0.15063.0\Windows.winmd') and '$(AppxTargetApiVersion)' == ''">10.0.15063.0</AppxTargetApiVersion>
     <AppxTargetApiVersion Condition="Exists('$(MSBuildProgramFiles32)\Windows Kits\10\UnionMetadata\10.0.14393.0\Windows.winmd') and '$(AppxTargetApiVersion)' == ''">10.0.14393.0</AppxTargetApiVersion>
