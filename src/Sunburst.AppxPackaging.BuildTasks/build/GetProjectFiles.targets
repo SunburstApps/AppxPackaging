@@ -6,7 +6,7 @@
       <Output TaskParameter="Filtered" ItemName="_AppXProjectFileWithoutMetadata"/>
     </RemoveDuplicates>
 
-    <AppxConvertContentItems InputItems="@(Content);@(None)" RootDestination="$(_AppXDestination)">
+    <AppxConvertContentItems InputItems="@(Content);@(None)" RootDestination="$(_AppxDestination)">
       <Output TaskParameter="OutputItems" ItemName="_AppxProjectFile" />
     </AppxConvertContentItems>
 

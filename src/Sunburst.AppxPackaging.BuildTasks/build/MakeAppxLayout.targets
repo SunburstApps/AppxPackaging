@@ -2,7 +2,7 @@
   <PropertyGroup>
     <AppxPackageLayoutDir Condition="'$(AppxPackageLayoutDir)' == ''">$(OutputPath)AppX</AppxPackageLayoutDir>
 
-    <CreateAppXPackageOnBuild Condition="'$(CreateAppXPackageOnBuild)' == ''">false</CreateAppXPackageOnBuild>
+    <CreateAppxPackageOnBuild Condition="'$(CreateAppxPackageOnBuild)' == ''">false</CreateAppxPackageOnBuild>
     <AppxReswDefaultLanguage Condition="'$(AppxReswDefaultLanguage)' == ''">en-US</AppxReswDefaultLanguage>
   </PropertyGroup>
 
@@ -24,7 +24,7 @@
   <Target Name="AppxCheckPreconditions">
     <Error Text="An AppxManifest item must be specified." Condition="'@(AppxManifest)' == ''" />
     <Error Text="Only one AppxManifest item may be specified (there are @(AppxManifest -> Count()))." Condition="'@(AppxManifest -> Count())' != '1'" />
-    <Error Text="You must specify the AppXDestination property if IncludeBuildOutputInAppXPackage is true" Condition="'$(IncludeBuildOutputInAppXPackage)' == 'true' and '$(AppXDestination)' == ''" />
+    <Error Text="You must specify the AppxDestination property if IncludeBuildOutputInAppxPackage is true" Condition="'$(IncludeBuildOutputInAppxPackage)' == 'true' and '$(AppxDestination)' == ''" />
 
     <PropertyGroup>
       <AppxPackageLayoutDir Condition="!HasTrailingSlash($(AppxPackageLayoutDir))">$(AppxPackageLayoutDir)\</AppxPackageLayoutDir>
@@ -35,9 +35,9 @@
     <MakeDir Directories="$(AppxPackageLayoutDir)" />
 
     <!-- Build the project references. -->
-    <ItemGroup Condition="'$(IncludeBuildOutputInAppXPackage)' == 'true' and '$(AppXDestination)' != ''">
+    <ItemGroup Condition="'$(IncludeBuildOutputInAppxPackage)' == 'true' and '$(AppxDestination)' != ''">
       <_ProjectReferenceWithDestination Include="$(MSBuildProjectFullPath)">
-        <Destination>$(AppXDestination)</Destination>
+        <Destination>$(AppxDestination)</Destination>
       </_ProjectReferenceWithDestination>
     </ItemGroup>
     <ItemGroup>
@@ -46,7 +46,7 @@
       </_ProjectReferenceWithDestination>
     </ItemGroup>
 
-    <MSBuild Projects="@(_ProjectReferenceWithDestination)" Targets="_AppXPackageGetProjectFiles" Properties="_AppXDestination=%(Destination)">
+    <MSBuild Projects="@(_ProjectReferenceWithDestination)" Targets="_AppxPackageGetProjectFiles" Properties="_AppxDestination=%(Destination)">
       <Output TaskParameter="TargetOutputs" ItemName="_ProjectFileWithDuplicates" />
     </MSBuild>
 
@@ -62,19 +62,19 @@
     <!-- Add the content files. -->
     <ItemGroup>
       <Content Include="@(AppxVisualAsset)">
-        <CopyToAppX>true</CopyToAppX>
+        <CopyToAppx>true</CopyToAppx>
         <Destination>Assets</Destination>
       </Content>
 
       <Content Include="@(_ProjectFile)">
-        <CopyToAppX>true</CopyToAppX>
+        <CopyToAppx>true</CopyToAppx>
         <Destination>%(_ProjectFile.Destination)</Destination>
       </Content>
     </ItemGroup>
 
     <!-- Copy the content files. -->
     <ItemGroup>
-      <_ContentWithDestination Include="@(Content)" Condition="'%(Content.CopyToAppX)' == 'true'">
+      <_ContentWithDestination Include="@(Content)" Condition="'%(Content.CopyToAppx)' == 'true'">
         <Destination>$(AppxPackageLayoutDir)\%(Content.Destination)</Destination>
       </_ContentWithDestination>
     </ItemGroup>
@@ -116,5 +116,5 @@
   </Target>
 
   <Target Name="MakeAppxLayout" DependsOnTargets="AppxCreatePackageLayout; AppxCompilePriConfig" />
-  <Target Name="CreateAppXLayoutOnBuild" DependsOnTargets="MakeAppxLayout" AfterTargets="Build" Condition="'$(CreateAppXLayoutOnBuild)' == 'true'" />
+  <Target Name="CreateAppxLayoutOnBuild" DependsOnTargets="MakeAppxLayout" AfterTargets="Build" Condition="'$(CreateAppxLayoutOnBuild)' == 'true'" />
 </Project>
