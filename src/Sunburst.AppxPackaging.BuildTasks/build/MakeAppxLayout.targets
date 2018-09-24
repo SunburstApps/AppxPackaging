@@ -1,7 +1,6 @@
 <Project>
   <PropertyGroup>
-    <AppxPackageRoot Condition="'$(AppxPackageRoot)' == ''">$(OutputPath)\AppX\</AppxPackageRoot>
-    <AppxPackageLayoutDir Condition="'$(AppxPackageLayoutDir)' == ''">$(AppxPackageRoot)Layout</AppxPackageLayoutDir>
+    <AppxPackageLayoutDir Condition="'$(AppxPackageLayoutDir)' == ''">$(OutputPath)AppX</AppxPackageLayoutDir>
 
     <CreateAppXPackageOnBuild Condition="'$(CreateAppXPackageOnBuild)' == ''">false</CreateAppXPackageOnBuild>
     <AppxReswDefaultLanguage Condition="'$(AppxReswDefaultLanguage)' == ''">en-US</AppxReswDefaultLanguage>
@@ -28,7 +27,6 @@
     <Error Text="You must specify the AppXDestination property if IncludeBuildOutputInAppXPackage is true" Condition="'$(IncludeBuildOutputInAppXPackage)' == 'true' and '$(AppXDestination)' == ''" />
 
     <PropertyGroup>
-      <AppxPackageRoot Condition="!HasTrailingSlash($(AppxPackageRoot))">$(AppxPackageRoot)\</AppxPackageRoot>
       <AppxPackageLayoutDir Condition="!HasTrailingSlash($(AppxPackageLayoutDir))">$(AppxPackageLayoutDir)\</AppxPackageLayoutDir>
     </PropertyGroup>
   </Target>
@@ -92,13 +90,12 @@
     </CreateReswFiles>
   </Target>
 
-  <Target Name="AppxCreatePriConfig" DependsOnTargets="AppxCheckPreconditions; AppxCompileReswFiles">
+  <Target Name="AppxCreatePriConfig" DependsOnTargets="PrepareForBuild; AppxCheckPreconditions; AppxCompileReswFiles">
     <PropertyGroup>
       <AppxPriLanguages Condition="'$(AppxPriLanguages)' == ''">$(AppxReswDefaultLanguage)</AppxPriLanguages>
     </PropertyGroup>
 
-    <MakeDir Directories="$(AppxPackageRoot)Fat" Condition="!Exists('$(AppxPackageRoot)Fat')" />
-    <CreatePriConfig LanguageQualifiers="$(AppxPriLanguages)" ConfigFilePath="$(AppxPackageRoot)FatPackage.xml"
+    <CreatePriConfig LanguageQualifiers="$(AppxPriLanguages)" ConfigFilePath="$(IntermediateOutputPath)priconfig.xml"
                      ToolsVersion="$(AppxBuildToolsVersion)" StandardOutputImportance="normal" StandardErrorImportance="high" />
   </Target>
 
@@ -109,7 +106,7 @@
     </ItemGroup>
 
     <Delete Files="@(_OldPriFile)" />
-    <CompilePriConfig PackageLayout="$(AppxPackageLayoutDir)" ConfigFile="$(AppxPackageRoot)FatPackage.xml" OutputFile="$(AppxPackageLayoutDir)resources.pri"
+    <CompilePriConfig PackageLayout="$(AppxPackageLayoutDir)" ConfigFile="$(IntermediateOutputPath)priconfig.xml" OutputFile="$(AppxPackageLayoutDir)resources.pri"
                       ToolsVersion="$(AppxBuildToolsVersion)" StandardOutputImportance="normal" StandardErrorImportance="high" />
   </Target>
 
