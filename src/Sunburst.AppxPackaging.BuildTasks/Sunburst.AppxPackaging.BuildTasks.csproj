@@ -11,7 +11,7 @@
     <Description>This package contains MSBuild tasks that create a Desktop Bridge (Centennial) application package.</Description>
     <Copyright>Copyright © 2018 William Kent. Licensed under the Apache License.</Copyright>
     <PackageTags>uwp;centennial;appx;desktop-bridge</PackageTags>
-    <Version>1.1.2</Version>
+    <Version>2.0.0</Version>
 
     <PackageProjectUrl>https://github.com/SunburstApps/AppxPackaging</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/SunburstApps/AppxPackaging/blob/master/LICENSE.txt</PackageLicenseUrl>
