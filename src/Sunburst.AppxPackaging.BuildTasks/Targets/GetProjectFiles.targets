@@ -2,17 +2,19 @@
   <UsingTask AssemblyFile="$(AppxBuildTasksAssembly)" TaskName="Sunburst.AppxPackaging.BuildTasks.AppxConvertContentItems" />
 
   <Target Name="_AppxPackageGetProjectFiles" DependsOnTargets="PrepareForBuild;ResolveReferences;GenerateSatelliteAssemblies;_CopyAppConfigFile" Returns="@(_AppxProjectFile)">
-    <RemoveDuplicates Inputs="@(ReferenceCopyLocalPaths);@(ReferenceSatellitePaths);$(TargetPath)">
-      <Output TaskParameter="Filtered" ItemName="_AppXProjectFileWithoutMetadata"/>
-    </RemoveDuplicates>
-
     <AppxConvertContentItems InputItems="@(Content);@(None)" RootDestination="$(_AppxDestination)">
       <Output TaskParameter="OutputItems" ItemName="_AppxProjectFile" />
     </AppxConvertContentItems>
 
     <ItemGroup>
-      <_AppxProjectFile Include="@(_AppXProjectFileWithoutMetadata)">
+      <_AppxProjectFile Include="$(TargetPath)">
         <Destination>$(_AppXDestination)</Destination>
+      </_AppxProjectFile>
+      <_AppxProjectFile Include="@(ReferenceCopyLocalPaths)">
+        <Destination>$(_AppXDestination)\%(ReferenceCopyLocalPaths.DestinationSubDirectory)</Destination>
+      </_AppxProjectFile>
+      <_AppxProjectFile Include="@(ReferenceSatellitePaths)">
+        <Destination>$(_AppXDestination)\%(ReferenceSatellitePaths.DestinationSubDirectory)</Destination>
       </_AppxProjectFile>
     </ItemGroup>
 
