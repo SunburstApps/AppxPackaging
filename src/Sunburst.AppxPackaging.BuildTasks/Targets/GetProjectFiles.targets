@@ -1,4 +1,8 @@
 <Project>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
   <UsingTask AssemblyFile="$(AppxBuildTasksAssembly)" TaskName="Sunburst.AppxPackaging.BuildTasks.AppxConvertContentItems" />
 
   <Target Name="_AppxPackageGetProjectFiles" DependsOnTargets="PrepareForBuild;ResolveReferences;GenerateSatelliteAssemblies;_CopyAppConfigFile" Returns="@(_AppxProjectFile)">

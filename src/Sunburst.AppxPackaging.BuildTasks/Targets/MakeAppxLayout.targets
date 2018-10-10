@@ -1,5 +1,9 @@
 <Project>
   <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <AppxPackageLayoutDir Condition="'$(AppxPackageLayoutDir)' == ''">$(OutputPath)AppX</AppxPackageLayoutDir>
 
     <CreateAppxPackageOnBuild Condition="'$(CreateAppxPackageOnBuild)' == ''">false</CreateAppxPackageOnBuild>

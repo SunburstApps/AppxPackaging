@@ -1,5 +1,6 @@
 <Project>
   <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
     <AppxBuildTasksAssembly>$(MSBuildThisFileDirectory)\netstandard2.0\Sunburst.AppxPackaging.BuildTasks.dll</AppxBuildTasksAssembly>
   </PropertyGroup>
 
