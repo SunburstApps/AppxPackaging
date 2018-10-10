@@ -7,6 +7,11 @@
     <AvailableItemName Include="AppxManifest" />
     <AvailableItemName Include="AppxVisualAsset" />
     <AvailableItemName Include="AppxStringResource" />
+
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)\Rules\ProjectItemsSchema.xaml" Context="Project" />
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)\Rules\AppxManifest.xaml" Context="File;BrowseObject" />
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)\Rules\AppxVisualAsset.xaml" Context="File;BrowseObject" />
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)\Rules\AppxStringResource.xaml" Context="File;BrowseObject" />
   </ItemGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)/GetProjectFiles.targets" />

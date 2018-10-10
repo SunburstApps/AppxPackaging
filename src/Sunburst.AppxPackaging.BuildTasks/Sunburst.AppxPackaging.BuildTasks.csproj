@@ -23,5 +23,21 @@
 
     <Content Include="Targets/**/*.props" Pack="true" PackagePath="build/%(RecursiveDir)" />
     <Content Include="Targets/**/*.targets" Pack="true" PackagePath="build/%(RecursiveDir)" />
+    <Content Include="Rules/*.xaml" Pack="true" PackagePath="build/Rules" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Rules\AppxManifest.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
+    <Content Update="Rules\AppxStringResource.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
+    <Content Update="Rules\AppxVisualAsset.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
+    <Content Update="Rules\ProjectItemsSchema.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
   </ItemGroup>
 </Project>
