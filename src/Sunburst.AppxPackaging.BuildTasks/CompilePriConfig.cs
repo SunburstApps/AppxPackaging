@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿// Copyright (c) William Kent. All rights reserved.
+// Licensed under the Apache License, version 2.0. See LICENSE.txt file in the project root for full license information.
+
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Build.Framework;
