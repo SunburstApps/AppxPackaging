@@ -5,7 +5,11 @@ VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{728919B1-F040-4798-BADF-27AC99CB3F24}"
 	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
 		..\NuGet.config = ..\NuGet.config
+		shipping.ruleset = shipping.ruleset
+		tests.ruleset = tests.ruleset
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sunburst.AppxPackaging.BuildTasks", "Sunburst.AppxPackaging.BuildTasks\Sunburst.AppxPackaging.BuildTasks.csproj", "{6691414B-6337-46D6-B437-228EEBC24FE5}"
