@@ -8,16 +8,21 @@ using System.Text;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
+#pragma warning disable CS8618 // Non-nullable field is uninitialized, but is checked by MSBuild, so will not actually cause an exception.
+
 namespace Sunburst.AppxPackaging.BuildTasks
 {
     public sealed class PackAppx : ToolTask
     {
         [Required]
         public ITaskItem ManifestFile { get; set; }
+
         [Required]
         public ITaskItem ResourceLayoutFile { get; set; }
+
         [Required]
         public ITaskItem OutputFile { get; set; }
+
         [Required]
         public string ToolsVersion { get; set; }
 

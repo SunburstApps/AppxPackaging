@@ -3,22 +3,29 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
+#pragma warning disable CS8618 // Non-nullable field is uninitialized, but is checked by MSBuild, so will not actually cause an exception.
+
 namespace Sunburst.AppxPackaging.BuildTasks
 {
+    [SuppressMessage("Performance", "CA1819:Properties should not return arrays", Justification = "Required by MSBuild.")]
     public sealed class CreateReswFiles : Task
     {
         [Required]
         public ITaskItem[] InputFiles { get; set; }
+
         [Required]
         public ITaskItem OutputDirectory { get; set; }
+
         [Required]
         public string DefaultLanguage { get; set; }
+
         [Output]
         public string[] AppxPriLanguages { get; set; }
 
@@ -32,20 +39,26 @@ namespace Sunburst.AppxPackaging.BuildTasks
             {
                 Log.LogMessage(MessageImportance.Normal, "Processing {0}", input.GetMetadata("FullPath"));
                 string[] fileContents = File.ReadAllLines(input.GetMetadata("FullPath"));
-                if (fileContents == null) throw new InvalidOperationException("fileContents is null, this shouldn't happen");
+                if (fileContents == null)
+                {
+                    throw new InvalidOperationException("fileContents is null, this shouldn't happen");
+                }
+
                 XDocument doc = new XDocument();
-                XElement root = new XElement(XName.Get("root", ""));
+                XElement root = new XElement(XName.Get("root", string.Empty));
                 doc.Add(root);
 
-                XName name_data = XName.Get("data", "");
-                XName name_value = XName.Get("value", "");
-                XName name_attr = XName.Get("name", "");
+                XName name_data = XName.Get("data", string.Empty);
+                XName name_value = XName.Get("value", string.Empty);
+                XName name_attr = XName.Get("name", string.Empty);
 
                 foreach (string line in fileContents)
                 {
                     string trimmedLine = line.Trim();
-                    if (trimmedLine.Length == 0) continue;
-                    if (trimmedLine.StartsWith(";") || trimmedLine.StartsWith("#")) continue;
+                    if (trimmedLine.Length == 0 || trimmedLine.StartsWith(";", StringComparison.Ordinal) || trimmedLine.StartsWith("#", StringComparison.Ordinal))
+                    {
+                        continue;
+                    }
 
                     string[] parts = line.Split('=');
                     string key = parts.First().Trim();
