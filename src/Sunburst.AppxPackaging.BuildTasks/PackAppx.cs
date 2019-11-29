@@ -1,9 +1,14 @@
-﻿using System;
+﻿// Copyright (c) William Kent. All rights reserved.
+// Licensed under the Apache License, version 2.0. See LICENSE.txt file in the project root for full license information.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
+
+#pragma warning disable CS8618 // Non-nullable field is uninitialized, but is checked by MSBuild, so will not actually cause an exception.
 
 namespace Sunburst.AppxPackaging.BuildTasks
 {
@@ -11,10 +16,13 @@ namespace Sunburst.AppxPackaging.BuildTasks
     {
         [Required]
         public ITaskItem ManifestFile { get; set; }
+
         [Required]
         public ITaskItem ResourceLayoutFile { get; set; }
+
         [Required]
         public ITaskItem OutputFile { get; set; }
+
         [Required]
         public string ToolsVersion { get; set; }
 
