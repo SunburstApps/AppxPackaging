@@ -14,7 +14,6 @@
     <Version>2.1.1</Version>
 
     <PackageProjectUrl>https://github.com/SunburstApps/AppxPackaging</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/SunburstApps/AppxPackaging/blob/master/LICENSE.txt</PackageLicenseUrl>
   </PropertyGroup>
 
   <ItemGroup>
