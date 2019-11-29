@@ -1,10 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26403.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sunburst.AppxPackaging.UwpApiReferences", "src\Sunburst.AppxPackaging.UwpApiReferences\Sunburst.AppxPackaging.UwpApiReferences.csproj", "{1430079B-1B3B-4C65-875F-261AABE50C06}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{728919B1-F040-4798-BADF-27AC99CB3F24}"
 	ProjectSection(SolutionItems) = preProject
 		NuGet.config = NuGet.config
@@ -18,10 +16,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1430079B-1B3B-4C65-875F-261AABE50C06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1430079B-1B3B-4C65-875F-261AABE50C06}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1430079B-1B3B-4C65-875F-261AABE50C06}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1430079B-1B3B-4C65-875F-261AABE50C06}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A3271229-9B2A-49F7-8001-DE6D558676C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A3271229-9B2A-49F7-8001-DE6D558676C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3271229-9B2A-49F7-8001-DE6D558676C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
