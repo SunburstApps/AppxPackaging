@@ -5,10 +5,10 @@ VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{728919B1-F040-4798-BADF-27AC99CB3F24}"
 	ProjectSection(SolutionItems) = preProject
-		NuGet.config = NuGet.config
+		..\NuGet.config = ..\NuGet.config
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sunburst.AppxPackaging.BuildTasks", "src\Sunburst.AppxPackaging.BuildTasks\Sunburst.AppxPackaging.BuildTasks.csproj", "{A3271229-9B2A-49F7-8001-DE6D558676C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sunburst.AppxPackaging.BuildTasks", "Sunburst.AppxPackaging.BuildTasks\Sunburst.AppxPackaging.BuildTasks.csproj", "{6691414B-6337-46D6-B437-228EEBC24FE5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,10 +16,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A3271229-9B2A-49F7-8001-DE6D558676C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A3271229-9B2A-49F7-8001-DE6D558676C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A3271229-9B2A-49F7-8001-DE6D558676C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A3271229-9B2A-49F7-8001-DE6D558676C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6691414B-6337-46D6-B437-228EEBC24FE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6691414B-6337-46D6-B437-228EEBC24FE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6691414B-6337-46D6-B437-228EEBC24FE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6691414B-6337-46D6-B437-228EEBC24FE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
