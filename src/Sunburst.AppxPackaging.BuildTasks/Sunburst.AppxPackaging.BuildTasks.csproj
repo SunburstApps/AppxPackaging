@@ -5,7 +5,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <EnableDefaultNoneItems>false</EnableDefaultNoneItems>
     <BuildOutputTargetFolder>build</BuildOutputTargetFolder>
-    <NoWarn>SA1600;SA1101;CA1303</NoWarn>
+    <NoWarn>SA1600;SA1101;CA1303;CS1591</NoWarn>
 
     <Title>Sunburst AppX Packaging Build Tasks</Title>
     <Authors>William Kent</Authors>
