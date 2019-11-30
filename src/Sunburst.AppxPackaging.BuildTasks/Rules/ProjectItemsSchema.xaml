@@ -1,7 +1,7 @@
 <ProjectSchemaDefinitions xmlns="http://schemas.microsoft.com/build/2009/properties">
     <ContentType Name="AppxManifest" DisplayName="AppX package manifest" ItemType="AppxManifest" />
     <ContentType Name="AppxVisualAsset" DisplayName="AppX visual asset resource" ItemType="AppxVisualAsset" />
-    <ContentType Name="AppxStringResource" DisplayName="AppX string resource" ItemType="AppxVisualAsset" />
+    <ContentType Name="AppxStringResource" DisplayName="AppX string resource" ItemType="AppxStringResource" />
 
     <ItemType Name="AppxManifest" DisplayName="AppX package manifest" />
     <ItemType Name="AppxVisualAsset" DisplayName="AppX visual asset resource" />
